@@ -14,6 +14,7 @@ content="<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\
 sudo echo -e "$content" | sudo tee /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
-config="\\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current;\n\t}\n"
-sudo sed -i "s/^server {/$config/" /etc/nginx/sites-enabled/default
+old_config="server {"
+new_config="\\\n\tserver {\n\t\tlocation /hbnb_static/ {\n\t\t\talias /data/web_static/current;\n\t\t}\n\t}\n"
+sudo sed -i "s/^$old_config/$new_config/" /etc/nginx/sites-enabled/default
 sudo service nginx restart
