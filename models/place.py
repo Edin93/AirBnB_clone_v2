@@ -43,22 +43,30 @@ class Place(BaseModel, Base):
 
     metadata = Base.metadata
 
-    place_amenity = Table('place_amenity', metadata,
-                          Column('place_id', String(60),
-                                 ForeignKey('places.id'),
-                                 primary_key=True,
-                                 nullable=False),
-                          Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id'),
-                                 primary_key=True,
-                                 nullable=False)
-                         )
+    place_amenity = Table(
+        'place_amenity',
+        metadata,
+        Column(
+            'place_id',
+            String(60),
+            ForeignKey('places.id'),
+            primary_key=True,
+            nullable=False
+        ),
+        Column(
+            'amenity_id',
+            String(60),
+            ForeignKey('amenities.id'),
+            primary_key=True,
+            nullable=False
+        )
+    )
 
     amenities = relationship(
         "Amenity",
         secondary="place_amenity",
-        viewonly=False)
-
+        viewonly=False
+    )
 
     @property
     def amenities(self):
@@ -66,7 +74,7 @@ class Place(BaseModel, Base):
         """
         amenities = models.storage.all(Amenity)
         d = []
-        for k,v in amenities.items():
+        for k, v in amenities.items():
             if v.id in self.amenity_ids:
                 d[k] = v
         return(d)
