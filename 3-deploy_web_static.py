@@ -4,6 +4,8 @@ Creates and distributes an archive to your web servers,
 using the function deploy
 """
 import datetime
+from fabric.operations import local
+from fabric.context_managers import lcd
 from fabric.api import local, lcd, put, env, run
 
 
@@ -63,12 +65,17 @@ def do_deploy(archive_path):
     return True
 
 
+valid_path = None
+
+
 def deploy():
     """
     Creates and distributes an archive to your web servers.
     """
-    tar_path = do_pack()
-    if tar_path is None:
-        return False
-    else:
-        return do_deploy(tar_path)
+    global valid_path
+    if valid_path is None:
+        valid_path = do_pack()
+        if valid_path is None:
+            return False
+    if valid_path is not None:
+        return do_deploy(valid_path)
