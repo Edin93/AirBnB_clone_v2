@@ -35,9 +35,8 @@ file { '/data/web_static/releases/test':
 ensure => directory,
 }
 ->
-$content='<html>\n\t<head>\n\t</head>\n\t<body>\n\t\tHolberton School\n\t</body>\n</html>'
 exec { 'fill_index_file':
-command  => 'sudo echo -e "$content" | sudo tee /data/web_static/releases/test/index.html',
+command  => 'sudo echo "Holberton SChool ya wakel lfoul" > /data/web_static/releases/test/index.html',
 path     => ['/usr/bin', '/usr/sbin', '/bin'],
 provider => 'shell',
 }
