@@ -42,13 +42,19 @@ class BaseModel:
             created_at: creation date
             updated_at: updated date
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = self.updated_at = dt.now()
-        if kwargs:
+        if (len(kwargs) == 0):
+            self.id = str(uuid.uuid4())
+            self.created_at = self.updated_at = dt.now()
+
+        elif kwargs:
             for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
-                    value = dt.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class__":
+                if key == "created_at":
+                    kwargs["created_at"] = dt.strptime(
+                         value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == "updated_at":
+                    kwargs["updated_at"] = dt.strptime(
+                         value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key != "__class__":
                     setattr(self, key, value)
 
     def __str__(self):
