@@ -31,7 +31,24 @@ def get_c_page(text):
     """
     Return /c/<text> content.
     """
-    return 'C %s' % text
+    return 'C %s' % text.replace('_', ' ')
+
+
+@app.route('/python/', defaults={'text': 'is cool'})
+@app.route('/python/<text>', strict_slashes=False)
+def get_python_page(text):
+    """
+    Return /python/(<text>) content.
+    """
+    return 'Python %s' % text.replace('_', ' ')
+
+
+@app.route('/number/<int:n>', strict_slashes=False)
+def get_number_page(n):
+    """
+    Return if passed parameter a number or not.
+    """
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
