@@ -51,7 +51,6 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, value)
 
-
     def __str__(self):
         """returns a string
         Return:
