@@ -26,8 +26,8 @@ class State(BaseModel, Base):
         """Returns the list of Cities with the correspondant state_id
         """
         cities = models.storage.all(City)
-        d = {}
+        cities_list = []
         for k, v in cities.items():
             if v.state_id == self.id:
-                d[k] = v
-        return(d)
+                cities_list.append(v)
+        return(cities_list)
