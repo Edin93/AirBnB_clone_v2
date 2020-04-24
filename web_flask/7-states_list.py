@@ -25,8 +25,7 @@ def get_states_list():
     """
     Return states list HTML template.
     """
-    states_list = storage.all(State)
-    states_list = OrderedDict(sorted(states_list.items()))
+    states_list = [v for k, v in (storage.all(State)).items()]
     r = render_template(
         '7-states_list.html',
         states_list=states_list
