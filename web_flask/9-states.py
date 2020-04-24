@@ -32,7 +32,7 @@ def get_state_by_id(id=None):
     else:
         k = "<class 'models.state.State'>." + str(id)
         one_state = store.get(k, None)
-        states = []
+        states = None
     r = render_template(
         '9-states.html',
         states=states,
