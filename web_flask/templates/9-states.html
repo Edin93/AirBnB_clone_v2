@@ -12,7 +12,7 @@
 	      <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
 	    {% endfor %}
 	  </UL>
-      {% elif states %}
+      {% elif states is not none %}
 	  <H1>States</H1>
           <UL>
 	    {% for state in states|sort(attribute="name") %}
